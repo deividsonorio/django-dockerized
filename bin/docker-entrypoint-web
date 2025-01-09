@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Sempre mantenha isso aqui, pois garante que seus assets mais recentes cheguem ao seu destino
+# em seu diretório público no volume persistente do Docker.
+cp -r /public_collected /app
+
+exec "$@"

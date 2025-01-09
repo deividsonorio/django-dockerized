@@ -1,0 +1,15 @@
+{% extends "layouts/index.html" %}
+{% load static %}
+
+{% block title %}Docker + Django{% endblock %}
+
+{% block body %}
+  <div class="flex justify-center pt-24 pb-12 px-2 sm:px-0">
+    <img src="{% static 'images/django.png' %}"
+         width="480" height="167" alt="Django logo" />
+  </div>
+
+  <p class="text-center text-lg mt-6">
+   🐳 Base para sistemas e aplicativos Django + Docker + PostgreSQL
+  </p>
+{% endblock %}

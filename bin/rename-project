@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+APP_NAME="${1}"
+MODULE_NAME="${2}"
+
+FIND_APP_NAME="hello"
+FIND_MODULE_NAME="Hello"
+FIND_FRAMEWORK="django"
+
+if [ -z "${APP_NAME}" ] || [ -z "${MODULE_NAME}" ]; then
+    echo "Você deve fornecer um nome de aplicativo e de módulo, por exemplo: ${0} myapp MyApp"
+    exit 1
+fi
+
+if [ "${APP_NAME}" = "${FIND_APP_NAME}" ]; then
+    echo "O nome do seu novo aplicativo deve ser diferente do nome do aplicativo atual"
+    exit 1
+fi
+
+cat << EOF
+Ao renomear seu projeto, você precisará recriar um novo banco de dados.
+
+Isso pode ser feito facilmente com o Docker, mas antes que esse script faça isso
+é necessário aceitar que este script pode exclua o seu banco de dados atual
+removendo quaisquer volumes Docker associados.
+
+EOF
+
+while true; do
+    read -p "Rodar docker compose down -v (y/n)? " -r yn
+    case "${yn}" in
+        [Yy]* )
+          printf "\n--------------------------------------------------------\n"
+          docker compose down -v
+          printf -- "--------------------------------------------------------\n"
+
+          break;;
+        [Nn]* ) exit;;
+        * ) echo "";;
+    esac
+done
+
+# -----------------------------------------------------------------------------
+# The core of the script which renames a few things.
+# -----------------------------------------------------------------------------
+find . -type f -exec \
+  perl -i \
+    -pe "s/(${FIND_APP_NAME}${FIND_FRAMEWORK}|${FIND_APP_NAME})/${APP_NAME}/g;" \
+    -pe "s/${FIND_MODULE_NAME}/${MODULE_NAME}/g;" {} +
+# -----------------------------------------------------------------------------
+
+cat << EOF
+
+--------------------------------------------------------
+Seu projeto foi renomeado com sucesso!
+--------------------------------------------------------
+
+EOF
+
+function init_git_repo {
+  [ -d .git/ ] && rm -rf .git/
+
+cat << EOF
+
+--------------------------------------------------------
+$(git init)
+--------------------------------------------------------
+EOF
+
+  git symbolic-ref HEAD refs/heads/main
+}
+
+while true; do
+    read -p "Você deseja iniciar um novo repositório git local (y/n)? " -r yn
+    case "${yn}" in
+        [Yy]* ) init_git_repo; break;;
+        [Nn]* ) break;;
+        * ) echo "";;
+    esac
+done
+
+cat << EOF
+
+Terminamos aqui. Tudo funcionou!
+
+Se você estiver satisfeito com o nome do seu novo projeto, você pode excluir o
+script executando: rm bin/rename-project
+
+Ou você pode mantê-lo caso decida alterar o seu nome mais tarde,
+depois de desenvolvê-lo um pouco. Você pode executar esse
+script quantas vezes quiser.
+
+EOF
