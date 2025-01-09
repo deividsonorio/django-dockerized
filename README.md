@@ -48,8 +48,8 @@
 Você precisa ter o [Docker instalado](https://docs.docker.com/get-docker/).
 
 Você também precisará habilitar o suporte ao Docker Compose v2 se estiver usando o Docker Desktop. 
-No Linux nativo sem Docker Desktop você pode [instalar ele commo um plugin para o Docker](https://docs.docker.com/compose/install/linux/). It's been generally
-available for a while now and is stable. Este projeto usa o Docker Compose e só funcionará com a versão v2 2.20.2+.
+No Linux nativo sem Docker Desktop você pode [instalar como um plugin para o Docker](https://docs.docker.com/compose/install/linux/).
+Este projeto usa o Docker Compose e só funcionará com a versão v2 2.20.2+.
 
 #### Iniciando o projeto
 
@@ -253,9 +253,9 @@ Vocẽ pode utilizar imagens pré buildadas de seu registry docker,
 mas se você decidir construir suas imagens Docker diretamente no
 seu servidor, você pode executar `docker compose build` como parte de sua pipeline.
 
-### Saiba mais sobre Docker e Django
+## Saiba mais sobre Docker e Django
 
-#### Documentação oficial
+### Documentação oficial
 
 - <https://docs.docker.com/>
 - <https://docs.djangoproject.com/en/5.1/>
