@@ -1,5 +1,5 @@
 FROM node:20.6.1-bookworm-slim AS assets
-LABEL maintainer="Deivid S. Onorio <ndeividsonorio@gmail.com>"
+LABEL maintainer="Deivid S. Onorio <deividsonorio@gmail.com>"
 
 WORKDIR /app/assets
 

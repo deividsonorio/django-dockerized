@@ -1,4 +1,5 @@
 # Django + Docker
+1.0.0
 
 ## Tecnologias utilizadas
 
@@ -138,7 +139,7 @@ ambiente (desenvolvimento, CI, produção, etc.).
 Você pode rodar `./run` para ver uma lista de comandos e cada um deles tem uma
 documentação no arquivo `run`.
 
-É um shell script que possui diversas funções definidas para ajudar a interagir
+É um shell script que possui diversas funções definidas para interagir
 com o projeto. É basicamente um `Makefile`, mas com menos limitações.
 
 Ele é útil para executar vários comandos do Docker porque às vezes esses
@@ -219,7 +220,7 @@ don't run that just yet.
 You can also access `pip3` and `yarn` in Docker with `./run pip3` and `./run
 yarn` after you've upped the project.
 
-#### In development:
+#### Em desenvolvimento
 
 Você pode executar `./run pip3:outdated` ou `./run yarn:outdated` para obter uma lista de
 dependências desatualizadas com base no que você tem instalado. Uma vez que você
@@ -231,7 +232,7 @@ construir uma nova imagem com quaisquer novas dependências e também assegurar 
 seja copiada da sua imagem para o seu código.
 
 Além disso, você pode executar `./run deps:install --no-build` para copiar apenas 
-as atualizações do arquivo lock  sem reconstruir uma imagem.
+as atualizações do arquivo lock sem reconstruir uma imagem.
 
 Os arquivos lock garantem que as versões exatas
 de cada pacote que você possui (incluindo dependências de dependências) sejam usados
